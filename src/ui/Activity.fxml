@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ActivityController">
+   <children>
+      <TextField id="distance" fx:id="distance" layoutX="30.0" layoutY="125.0" promptText="Distance" />
+      <TextField id="time" fx:id="time" layoutX="207.0" layoutY="125.0" promptText="Time" />
+      <TextField id="date" fx:id="date" layoutX="30.0" layoutY="175.0" promptText="Date Completed" />
+      <Button layoutX="30.0" layoutY="235.0" mnemonicParsing="false" onAction="#addActivity" text="Add" />
+      <Text layoutX="30.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Activity:" />
+      <Button layoutX="436.0" layoutY="330.0" mnemonicParsing="false" onAction="#changeSceneButtonPushed" text="Add Meet Results" />
+      <Button layoutX="436.0" layoutY="283.0" mnemonicParsing="false" onAction="#changeSceneButtonPushed2" text="View Activities" />
+      <Button layoutX="30.0" layoutY="330.0" mnemonicParsing="false" onAction="#goToAthletePage" text="Back To Athlete Page" />
+   </children>
+</AnchorPane>

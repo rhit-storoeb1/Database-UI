@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ViewActivitiesController">
+   <children>
+      <TableView id="table" fx:id="table" layoutX="67.0" layoutY="100.0" prefHeight="200.0" prefWidth="447.0">
+        <columns>
+          <TableColumn id="distance" fx:id="distance" prefWidth="88.0" text="Distance" />
+          <TableColumn id="time" fx:id="time" prefWidth="108.0" text="Time" />
+            <TableColumn id="pace" fx:id="pace" prefWidth="109.0" text="Pace" />
+            <TableColumn id="date" fx:id="date" prefWidth="141.0" text="Date" />
+        </columns>
+      </TableView>
+      <Text layoutX="67.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="View Activities" />
+      <Button layoutX="474.0" layoutY="324.0" mnemonicParsing="false" onAction="#changeSceneButtonPushed" text="Add Activity" />
+      <Button layoutX="67.0" layoutY="324.0" mnemonicParsing="false" onAction="#deleteActivity" text="Delete Activity" />
+      <Button layoutX="328.0" layoutY="324.0" mnemonicParsing="false" onAction="#goToAthletePage" text="Go to Athlete Page" />
+   </children>
+</AnchorPane>

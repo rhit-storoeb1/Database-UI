@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="388.0" prefWidth="588.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.RegisterController">
+   <children>
+      <Text layoutX="242.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Register to TrackFlo" />
+      <TextField id="Rusername" fx:id="Rusername" layoutX="220.0" layoutY="77.0" promptText="Username" />
+      <TextField id="Rpassword" fx:id="Rpassword" layoutX="220.0" layoutY="119.0" promptText="Password" />
+      <TextField id="Rteamname" fx:id="Rteamname" layoutX="220.0" layoutY="257.0" promptText="Team Name" />
+      <Button layoutX="264.0" layoutY="296.0" mnemonicParsing="false" onAction="#register" text="Register" />
+      <Button layoutX="245.0" layoutY="339.0" mnemonicParsing="false" onAction="#goToLogin" text="Return to Login" />
+      <TextField id="RFName" fx:id="RFName" layoutX="220.0" layoutY="169.0" promptText="First Name" />
+      <TextField id="RLName" fx:id="RLName" layoutX="220.0" layoutY="214.0" promptText="Last Name" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.MeetResultsController">
+   <children>
+      <Button layoutX="56.0" layoutY="284.0" mnemonicParsing="false" onAction="#addMeetResult" text="Add" />
+      <TextField id="event" fx:id="event" layoutX="56.0" layoutY="222.0" promptText="Event" />
+      <TextField id="mark" fx:id="mark" layoutX="226.0" layoutY="222.0" promptText="Mark" />
+      <TextField id="athleteID" fx:id="athleteID" layoutX="56.0" layoutY="157.0" promptText="AthleteID" />
+      <TextField id="meetID" fx:id="meetID" layoutX="56.0" layoutY="105.0" promptText="MeetID" />
+      <TextField id="place" fx:id="place" layoutX="402.0" layoutY="222.0" promptText="Place" />
+      <Text layoutX="56.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Meet Results" />
+      <Button layoutX="476.0" layoutY="341.0" mnemonicParsing="false" onAction="#changeSceneButtonPushed" text="Add Activity" />
+   </children>
+</AnchorPane>
