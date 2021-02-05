@@ -15,7 +15,8 @@ public class DBConnector {
     public boolean connect() {
         //BUILD YOUR CONNECTION STRING HERE USING THE SAMPLE URL ABOVE
         String url = SampleURL;
-        String fullURL = url.replace("${dbServer}", this.serverName)
+        String fullURL = url.
+                 replace("${dbServer}", this.serverName)
                 .replace("${dbName}", this.databaseName)
                 .replace("${user}", "trackflo_user")
                 .replace("${pass}", "Password123");
