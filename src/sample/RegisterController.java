@@ -67,7 +67,6 @@ public class RegisterController {
             e.printStackTrace();
         }
         if (errorCode != 0){
-            System.out.println("fuck you");
             System.out.println(errorCode);
             return;
         }

@@ -97,6 +97,8 @@ public class AthleteController implements Initializable {
             }
             if(hasFriends){
                 query2 = query2.substring(0,query2.length()-8); //remove last OR ID =
+            }else{
+                return;
             }
             try{
                 CallableStatement stmt2 = Main.db.getConnection().prepareCall(query2);
@@ -150,5 +152,14 @@ public class AthleteController implements Initializable {
         updateName();
         showFriends();
         showPBs();
+    }
+
+    public void goToRacePerformances(ActionEvent event) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("../ui/PerformanceView.fxml"));
+        Scene scene = new Scene(parent);
+        //get stage
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 }
