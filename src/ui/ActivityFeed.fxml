@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ActivityFeedController">
+      <Text layoutX="256.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Friends Activities" />
+      <TableView id="table" fx:id="table" layoutX="29.0" layoutY="127.0" prefHeight="200.0" prefWidth="541.0">
+        <columns>
+          <TableColumn id="fname" fx:id="fname" prefWidth="75.0" text="FirstName" />
+          <TableColumn id="lname" fx:id="lname" prefWidth="75.0" text="LastName" />
+            <TableColumn id="distance" fx:id="distance" prefWidth="76.0" text="Distance" />
+            <TableColumn id="time" fx:id="time" prefWidth="111.0" text="Time" />
+            <TableColumn id="pace" fx:id="pace" prefWidth="93.0" text="Pace" />
+            <TableColumn id="date" fx:id="date" prefWidth="110.0" text="Date" />
+        </columns>
+      </TableView>
+      <Button layoutX="55.0" layoutY="350.0" mnemonicParsing="false" text="Return to Athlete page" />
+      <Button layoutX="256.0" layoutY="350.0" mnemonicParsing="false" text="View Activity" />
+</AnchorPane>

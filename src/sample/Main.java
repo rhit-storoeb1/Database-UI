@@ -20,7 +20,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("../ui/Login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../ui/ActivityFeed.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setTitle("TrackFlo");
         primaryStage.setScene(scene);
@@ -35,7 +35,7 @@ public class Main extends Application {
     public String calculatePace(String distanceRun, String timeRun){
         double dist;
         int minutes = Integer.parseInt(timeRun.substring(0, timeRun.indexOf(':')));
-        int seconds = Integer.parseInt(timeRun.substring(timeRun.indexOf(':')+1, timeRun.length()));
+        int seconds = Integer.parseInt(timeRun.substring(timeRun.indexOf(':')+1));
         try{
             dist = Double.parseDouble(distanceRun);
         }catch(Exception e){
@@ -46,7 +46,7 @@ public class Main extends Application {
         double paceMin = (calcTime/dist);
         double paceSec = (paceMin - ((int) paceMin))*60;
         String finalProduct = ((int) paceMin) + ":" + ((int) paceSec);
-        if(finalProduct.substring(finalProduct.indexOf(':')+1,finalProduct.length()).length()==1){
+        if(finalProduct.substring(finalProduct.indexOf(':')+1).length()==1){
             finalProduct += "0";
         }
         System.out.println(finalProduct);
