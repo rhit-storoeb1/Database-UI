@@ -2,12 +2,19 @@ package sample;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
@@ -35,7 +42,7 @@ public class ActivityFeedController implements Initializable {
     private ObservableList<ActivityFeedTable> activitylist = FXCollections.observableArrayList();
 
     public void showActivityFeed(){
-        String query = "SELECT Athlete.ID, FirstName, LastName, Distance, Time, Pace, Date"
+        String query = "SELECT a1.ID AS ActivityID, Athlete.ID, FirstName, LastName, Distance, Time, Pace, Date"
             + " FROM IsFriendsWith f"
             + " RIGHT JOIN Activity a1 ON (a1.AthleteID=f.Athlete1ID OR a1.AthleteID=f.Athlete2ID) AND a1.AthleteID<>" + Main.id
             + " JOIN Athlete ON Athlete.ID = a1.AthleteID"
@@ -50,7 +57,8 @@ public class ActivityFeedController implements Initializable {
                 if(pace.substring(pace.indexOf(':')+1, pace.length()).length()==1){
                     pace = pace + "0";
                 }
-                activitylist.add(new ActivityFeedTable(rs.getString("ID"),
+                activitylist.add(new ActivityFeedTable(rs.getString("ActivityID"),
+                        rs.getString("ID"),
                         rs.getString("FirstName"),
                         rs.getString("LastName"),
                         rs.getString("Distance"),
@@ -73,6 +81,20 @@ public class ActivityFeedController implements Initializable {
 
 
 
+    }
+
+    public void goToLikeComment(ActionEvent event) throws IOException {
+        String activityID = table.getSelectionModel().getSelectedItem().ActivityID;
+        //Parent register = FXMLLoader.load(getClass().getResource("../ui/LikeComment.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../ui/LikeComment.fxml"));
+        Parent register = loader.load();
+        LikeCommentController controller = loader.getController();
+        controller.setInfo(Main.id, Integer.parseInt(activityID));
+        Scene registerScene = new Scene(register);
+        Stage registerStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        registerStage.setScene(registerScene);
+
+        registerStage.show();
     }
 
     @Override

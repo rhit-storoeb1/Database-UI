@@ -2,9 +2,10 @@ package sample;
 
 public class ActivityFeedTable {
 
-    private String AthleteID, FirstName, LastName, Distance, Time, Pace, Date;
+    public String ActivityID, AthleteID, FirstName, LastName, Distance, Time, Pace, Date;
 
-    public ActivityFeedTable(String AthleteID, String FirstName, String LastName, String Distance, String Time, String Pace, String Date){
+    public ActivityFeedTable(String ActivityID, String AthleteID, String FirstName, String LastName, String Distance, String Time, String Pace, String Date){
+        this.ActivityID = ActivityID;
         this.AthleteID = AthleteID;
         this.FirstName = FirstName;
         this.LastName = LastName;
