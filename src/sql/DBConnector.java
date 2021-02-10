@@ -18,8 +18,8 @@ public class DBConnector {
         String fullURL = url.
                  replace("${dbServer}", this.serverName)
                 .replace("${dbName}", this.databaseName)
-                .replace("${user}", "brillew")
-                .replace("${pass}", "Bongerdoo-1102");
+                .replace("${user}", "trackflo_user")
+                .replace("${pass}", "Password123");
         try{
             this.connection = DriverManager.getConnection(fullURL);
         }catch(SQLException e){
