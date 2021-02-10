@@ -38,6 +38,8 @@ public class AthleteController implements Initializable {
     private ObservableList<PBTable> pblist = FXCollections.observableArrayList();
     private ObservableList<FriendsTable> friendslist = FXCollections.observableArrayList();
 
+    public static int currentID = -1;
+    public static boolean isCurrentAthlete = true;
 
     @FXML
     private Text name;
@@ -61,7 +63,7 @@ public class AthleteController implements Initializable {
     }
 
     public void updateName(){
-        String query = "SELECT FirstName, LastName FROM Athlete WHERE ID = " + Main.id;
+        String query = "SELECT FirstName, LastName FROM Athlete WHERE ID = " + this.currentID;
         try{
             Main.db.connect();
             CallableStatement stmt = Main.db.getConnection().prepareCall(query);
@@ -77,8 +79,8 @@ public class AthleteController implements Initializable {
 
     public void showFriends(){
         friendstable.getItems().clear();
-        String query = "SELECT * FROM IsFriendsWith WHERE Athlete1ID = " + Main.id + " OR Athlete2ID = " + Main.id;
-        String query2 = "SELECT FirstName, LastName FROM Athlete WHERE ID = ";
+        String query = "SELECT * FROM IsFriendsWith WHERE Athlete1ID = " + this.currentID + " OR Athlete2ID = " + this.currentID;
+        String query2 = "SELECT ID, FirstName, LastName FROM Athlete WHERE ID = ";
         try{
             Main.db.connect();
             CallableStatement stmt = Main.db.getConnection().prepareCall(query);
@@ -89,7 +91,7 @@ public class AthleteController implements Initializable {
                 //prepare new statement to get all
                 String athlete1 = rs.getString(1);
                 String athlete2 = rs.getString(2);
-                if(athlete1.equals(Main.id)){
+                if(Integer.parseInt(athlete1)==this.currentID){
                     query2 = query2 + athlete2 + " OR ID = ";
                 }else {
                     query2 = query2 + athlete1 + " OR ID = ";
@@ -101,13 +103,15 @@ public class AthleteController implements Initializable {
                 return;
             }
             try{
+                System.out.println(query2);
                 CallableStatement stmt2 = Main.db.getConnection().prepareCall(query2);
                 ResultSet rs2 = stmt2.executeQuery();
 
                 while(rs2.next()){
                     String first = rs2.getString("FirstName");
                     String last = rs2.getString("LastName");
-                    friendslist.add(new FriendsTable(first + " " + last));
+                    String id = rs2.getString("ID");
+                    friendslist.add(new FriendsTable(id, first + " " + last));
                 }
             }catch(SQLException e){
                 e.printStackTrace();
@@ -127,7 +131,7 @@ public class AthleteController implements Initializable {
     }
     public void showPBs(){
         pbtable.getItems().clear();
-        String query = "SELECT EventName, Mark FROM HasPBIn WHERE AthleteID = " + Main.id;
+        String query = "SELECT EventName, Mark FROM HasPBIn WHERE AthleteID = " + this.currentID;
         try{
             Main.db.connect();
             CallableStatement stmt = Main.db.getConnection().prepareCall(query);
@@ -146,9 +150,22 @@ public class AthleteController implements Initializable {
 
     }
 
+    public void returnToCurrentAthlete(ActionEvent event) throws IOException{
+        this.currentID = Main.id;
+        this.isCurrentAthlete = true;
+        Parent parent = FXMLLoader.load(getClass().getResource("../ui/Athlete.fxml"));
+        Scene scene = new Scene(parent);
+        //get stage
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        if(this.isCurrentAthlete){
+            this.currentID = Main.id;
+        }
         updateName();
         showFriends();
         showPBs();
@@ -162,4 +179,28 @@ public class AthleteController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    public void goToFriendsPage(ActionEvent event) throws IOException{
+        //get friends athleteID, set to local variable. fetch from here
+        String friendID = friendstable.getSelectionModel().getSelectedItem().id;
+        this.currentID = Integer.parseInt(friendID);
+        this.isCurrentAthlete = false;
+
+        Parent parent = FXMLLoader.load(getClass().getResource("../ui/Athlete.fxml"));
+        Scene scene = new Scene(parent);
+        //get stage
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void goToActivityFeed(ActionEvent event) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("../ui/ActivityFeed.fxml"));
+        Scene scene = new Scene(parent);
+        //get stage
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+
 }

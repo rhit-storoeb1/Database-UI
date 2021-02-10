@@ -7,19 +7,19 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.AthleteController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.AthleteController">
    <children>
-      <Button layoutX="275.0" layoutY="351.0" mnemonicParsing="false" onAction="#goToAddActivity" text="Add Activity" />
-      <Button layoutX="98.0" layoutY="351.0" mnemonicParsing="false" onAction="#goToRacePerformances" text="View Race Performances" />
+      <Button layoutX="204.0" layoutY="351.0" mnemonicParsing="false" onAction="#goToAddActivity" text="Add Activity" />
+      <Button layoutX="27.0" layoutY="351.0" mnemonicParsing="false" onAction="#goToRacePerformances" text="View Race Performances" />
       <Text id="name" fx:id="name" layoutX="244.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
          <font>
             <Font size="35.0" />
          </font>
       </Text>
-      <TableView id="pbtable" fx:id="pbtable" layoutX="269.0" layoutY="112.0" prefHeight="200.0" prefWidth="304.0">
+      <TableView id="pbtable" fx:id="pbtable" layoutX="312.0" layoutY="112.0" prefHeight="200.0" prefWidth="261.0">
         <columns>
-          <TableColumn id="eventcolumn" fx:id="eventcolumn" prefWidth="146.0" text="Event" />
-          <TableColumn id="pbcolumn" fx:id="pbcolumn" prefWidth="157.0" text="Personal Best" />
+          <TableColumn id="eventcolumn" fx:id="eventcolumn" prefWidth="90.0" text="Event" />
+          <TableColumn id="pbcolumn" fx:id="pbcolumn" prefWidth="213.0" text="Personal Best" />
         </columns>
       </TableView>
       <TableView id="friendstable" fx:id="friendstable" layoutX="27.0" layoutY="112.0" prefHeight="200.0" prefWidth="194.0">
@@ -27,6 +27,9 @@
           <TableColumn id="friendscolumn" fx:id="friendscolumn" prefWidth="193.0" text="Friends" />
         </columns>
       </TableView>
-      <Button layoutX="395.0" layoutY="351.0" mnemonicParsing="false" onAction="#goToViewActivities" text="View Activities" />
+      <Button layoutX="306.0" layoutY="351.0" mnemonicParsing="false" onAction="#goToViewActivities" text="View Activities" />
+      <Button layoutX="439.0" layoutY="351.0" mnemonicParsing="false" onAction="#goToActivityFeed" text="View Friends Activities" />
+      <Button layoutX="232.0" layoutY="200.0" mnemonicParsing="false" onAction="#goToFriendsPage" text="View" />
+      <Button layoutX="229.0" layoutY="237.0" mnemonicParsing="false" onAction="#returnToCurrentAthlete" text="Home" />
    </children>
 </AnchorPane>

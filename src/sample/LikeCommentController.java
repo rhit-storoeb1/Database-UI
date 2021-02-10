@@ -1,5 +1,7 @@
 package sample;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,9 +9,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -22,7 +26,7 @@ import java.util.ResourceBundle;
 
 public class LikeCommentController implements Initializable {
     @FXML
-    private TableView<CommentTable> table;
+    private TableView<CommentTable> commentstable;
     @FXML
     private TableColumn<CommentTable, String> namecolumn;
     @FXML
@@ -42,17 +46,40 @@ public class LikeCommentController implements Initializable {
     @FXML
     private TextField commentfield;
 
-    private int AthleteID;
-    private int ActivityID;
+    private ObservableList<CommentTable> commentlist = FXCollections.observableArrayList();
+
+
+    public int AthleteID = -1;
+    public int ActivityID = -1;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        setInfo(ActivityFeedController.tempAthleteID, ActivityFeedController.tempActivityID);
         showLikes();
         showName();
+        showComments();
     }
 
     public void showComments(){
+        this.commentstable.getItems().clear();
+        String query = "SELECT FirstName, LastName, Content FROM [Comments On] " +
+                        "JOIN Athlete ON Athlete.ID = [Comments On].AthleteID " +
+                        "WHERE ActivityID = " + this.ActivityID;
+        try{
+            Main.db.connect();
+            CallableStatement stmt = Main.db.getConnection().prepareCall(query);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                commentlist.add(new CommentTable(rs.getString("FirstName") + " " + rs.getString("LastName"),
+                        rs.getString("Content")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        this.namecolumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        this.commentcolumn.setCellValueFactory(new PropertyValueFactory<>("Comment"));
 
+        commentstable.setItems(commentlist);
     }
 
     public void showLikes(){ //done on startup + when likes update
@@ -76,7 +103,9 @@ public class LikeCommentController implements Initializable {
             CallableStatement stmt = Main.db.getConnection().prepareCall(query);
             stmt.execute();
         }catch(SQLException e){
-            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("You have already Liked this activity");
+            alert.show();
         }
         showLikes();
     }
@@ -108,7 +137,7 @@ public class LikeCommentController implements Initializable {
     }
 
     public void addComment(){ //activates on button press
-        String query = "INSERT INTO CommentsOn (AthleteID, ActivityID, Content) VALUES (" + this.AthleteID + ", " + this.ActivityID + ", " + commentfield.getText() + ")";
+        String query = "INSERT INTO [Comments On] (AthleteID, ActivityID, Content) VALUES (" + Main.id + ", " + this.ActivityID + ", '" + commentfield.getText() + "')";
         try{
             Main.db.connect();
             CallableStatement stmt = Main.db.getConnection().prepareCall(query);
@@ -116,7 +145,7 @@ public class LikeCommentController implements Initializable {
         }catch(SQLException e){
             e.printStackTrace();
         }
-        //update Comments table after this
+        showComments();
     }
 
     public void goToActivityFeed(ActionEvent event) throws IOException {

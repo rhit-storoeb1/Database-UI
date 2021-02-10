@@ -38,6 +38,9 @@ public class ActivityFeedController implements Initializable {
     @FXML
     private TableColumn<ActivityFeedTable, String> date;
 
+    public static int tempActivityID;
+    public static int tempAthleteID;
+
 
     private ObservableList<ActivityFeedTable> activitylist = FXCollections.observableArrayList();
 
@@ -85,21 +88,28 @@ public class ActivityFeedController implements Initializable {
 
     public void goToLikeComment(ActionEvent event) throws IOException {
         String activityID = table.getSelectionModel().getSelectedItem().ActivityID;
-        //Parent register = FXMLLoader.load(getClass().getResource("../ui/LikeComment.fxml"));
+        String athleteID = table.getSelectionModel().getSelectedItem().AthleteID;
+        tempActivityID = Integer.parseInt(activityID);
+        tempAthleteID = Integer.parseInt(athleteID);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../ui/LikeComment.fxml"));
         Parent register = loader.load();
-        LikeCommentController controller = loader.getController();
-        controller.setInfo(Main.id, Integer.parseInt(activityID));
         Scene registerScene = new Scene(register);
         Stage registerStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         registerStage.setScene(registerScene);
-
         registerStage.show();
+    }
+
+    public void goToAthletePage(ActionEvent event) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("../ui/Athlete.fxml"));
+        Scene scene = new Scene(parent);
+        //get stage
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Main.id=1;
         showActivityFeed();
     }
 }

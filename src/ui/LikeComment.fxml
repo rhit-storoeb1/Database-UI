@@ -21,9 +21,9 @@
       <Text layoutX="330.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" />
       <Button layoutX="403.0" layoutY="115.0" mnemonicParsing="false" onAction="#addLikes" text="Like" />
       <Button layoutX="482.0" layoutY="115.0" mnemonicParsing="false" onAction="#removeLikes" text="Unlike" />
-      <Button layoutX="51.0" layoutY="348.0" mnemonicParsing="false" text="Return to Activity Feed" />
+      <Button layoutX="51.0" layoutY="348.0" mnemonicParsing="false" onAction="#goToActivityFeed" text="Return to Activity Feed" />
       <TextField id="commentfield" fx:id="commentfield" layoutX="403.0" layoutY="181.0" promptText="type comment here..." />
-      <Button layoutX="403.0" layoutY="236.0" mnemonicParsing="false" text="Add Comment" />
+      <Button layoutX="403.0" layoutY="236.0" mnemonicParsing="false" onAction="#addComment" text="Add Comment" />
       <Text id="distance" fx:id="distance" layoutX="51.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" />
       <Text id="time" fx:id="time" layoutX="157.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0:00" />
       <Text id="pace" fx:id="pace" layoutX="244.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0:00" />

@@ -18,6 +18,6 @@
             <TableColumn id="date" fx:id="date" prefWidth="110.0" text="Date" />
         </columns>
       </TableView>
-      <Button layoutX="55.0" layoutY="350.0" mnemonicParsing="false" text="Return to Athlete page" />
+      <Button layoutX="55.0" layoutY="350.0" mnemonicParsing="false" onAction="#goToAthletePage" text="Return to Athlete page" />
       <Button layoutX="256.0" layoutY="350.0" mnemonicParsing="false" onAction="#goToLikeComment" text="View Activity" />
 </AnchorPane>
