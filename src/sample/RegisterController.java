@@ -48,7 +48,7 @@ public class RegisterController {
         try{
             Main.db.connect();
             //user, salt, hash, teamname
-            CallableStatement stmt = Main.db.getConnection().prepareCall("{?= call Register(?, ?, ?, ?, ?, ?)}");
+            CallableStatement stmt = Main.db.getConnection().prepareCall("{?= call Register(?, ?, ?, ?, ?, ?, ?)}");
             stmt.registerOutParameter(1, Types.INTEGER);
             stmt.setString(2, Rusername.getText());
             stmt.setString(3, getStringFromBytes(newSalt));
@@ -56,8 +56,8 @@ public class RegisterController {
             stmt.setString(5, Rteamname.getText());
             stmt.setString(6, RFName.getText());
             stmt.setString(7, RLName.getText());
+            stmt.setString(8, null);
             stmt.execute();
-
             errorCode = stmt.getInt(1);
 
             //registration successful
