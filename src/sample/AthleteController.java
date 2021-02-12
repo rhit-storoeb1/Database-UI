@@ -53,15 +53,6 @@ public class AthleteController implements Initializable {
         stage.show();
     }
 
-    public void goToDataImport(ActionEvent event) throws IOException {
-        Parent parent = FXMLLoader.load(getClass().getResource("../ui/DataImport.fxml"));
-        Scene scene = new Scene(parent);
-        //get stage
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
-    }
-
     public void goToViewActivities(ActionEvent event) throws IOException{
         Parent parent = FXMLLoader.load(getClass().getResource("../ui/ViewActivities.fxml"));
         Scene scene = new Scene(parent);

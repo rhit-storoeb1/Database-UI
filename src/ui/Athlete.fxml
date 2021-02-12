@@ -31,6 +31,5 @@
       <Button layoutX="439.0" layoutY="351.0" mnemonicParsing="false" onAction="#goToActivityFeed" text="View Friends Activities" />
       <Button layoutX="232.0" layoutY="200.0" mnemonicParsing="false" onAction="#goToFriendsPage" text="View" />
       <Button layoutX="229.0" layoutY="237.0" mnemonicParsing="false" onAction="#returnToCurrentAthlete" text="Home" />
-      <Button layoutX="74.0" layoutY="39.0" mnemonicParsing="false" onAction="#goToDataImport" text="Button" />
    </children>
 </AnchorPane>

@@ -20,6 +20,6 @@
             <Font size="33.0" />
          </font>
       </Text>
-      <Button layoutX="240.0" layoutY="300.0" mnemonicParsing="false" onAction="#goToAthletePage" prefHeight="26.0" prefWidth="120.0" text="Go To Athlete Page" />
+      <Button layoutX="240.0" layoutY="300.0" mnemonicParsing="false" onAction="#goToLogin" prefHeight="26.0" prefWidth="120.0" text="Back To Login" />
    </children>
 </AnchorPane>

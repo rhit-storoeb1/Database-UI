@@ -20,21 +20,20 @@ public class DataImportController {
     public void runDataImport(){
 
         System.out.println(ImportPath.getText());
-//        DataImport di = new DataImport();
-//        try {
-//            di.importData(ImportPath.getText());
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//       }
+        DataImport di = new DataImport();
+        try {
+            di.importData(ImportPath.getText());
+        } catch (IOException e) {
+            e.printStackTrace();
+       }
     }
 
-
-    public void goToAthletePage(ActionEvent event) throws IOException {
-        Parent register = FXMLLoader.load(getClass().getResource("../ui/Athlete.fxml"));
-        Scene registerScene = new Scene(register);
+    public void goToLogin(ActionEvent event) throws IOException {
+        Parent login = FXMLLoader.load(getClass().getResource("../ui/Login.fxml"));
+        Scene loginScene = new Scene(login);
         //get stage
-        Stage registerStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        registerStage.setScene(registerScene);
-        registerStage.show();
+        Stage loginStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        loginStage.setScene(loginScene);
+        loginStage.show();
     }
 }
