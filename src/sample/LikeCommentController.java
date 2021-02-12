@@ -57,7 +57,27 @@ public class LikeCommentController implements Initializable {
         setInfo(ActivityFeedController.tempAthleteID, ActivityFeedController.tempActivityID);
         showLikes();
         showName();
+        loadData();
         showComments();
+    }
+
+    public void loadData(){
+        String query = "SELECT Distance, Time, Pace, Date FROM Activity WHERE ID = " + this.ActivityID;
+        try{
+            Main.db.connect();
+            CallableStatement stmt = Main.db.getConnection().prepareCall(query);
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+            this.distance.setText(rs.getString("Distance"));
+            this.time.setText(rs.getString("Time"));
+            this.pace.setText(rs.getString("Pace"));
+            String dateString = rs.getString("Date");
+            if(dateString!=null){
+                this.date.setText(dateString);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void showComments(){
