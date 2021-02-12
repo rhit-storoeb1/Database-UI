@@ -5,12 +5,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="336.0" prefWidth="490.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.LoginController">
+<AnchorPane prefHeight="336.0" prefWidth="490.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.LoginController">
    <children>
       <Text layoutX="189.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to TrackFlo" />
       <Button layoutX="223.0" layoutY="233.0" mnemonicParsing="false" onAction="#login" text="Login" />
       <TextField id="username" fx:id="username" layoutX="171.0" layoutY="121.0" promptText="Username" />
       <TextField id="password" fx:id="password" layoutX="171.0" layoutY="177.0" promptText="Password" />
       <Button layoutX="174.0" layoutY="282.0" mnemonicParsing="false" onAction="#goToRegistration" text="Go to Registration page" />
+      <Button layoutX="183.0" layoutY="31.0" mnemonicParsing="false" onAction="#goToDataImport" text="Import Data" />
    </children>
 </AnchorPane>

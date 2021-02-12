@@ -82,7 +82,6 @@ public class RegisterController {
     }
 
 
-
     public byte[] getNewSalt() {
         byte[] salt = new byte[16];
         RANDOM.nextBytes(salt);

@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.AthleteController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.AthleteController">
    <children>
       <Button layoutX="204.0" layoutY="351.0" mnemonicParsing="false" onAction="#goToAddActivity" text="Add Activity" />
       <Button layoutX="27.0" layoutY="351.0" mnemonicParsing="false" onAction="#goToRacePerformances" text="View Race Performances" />
