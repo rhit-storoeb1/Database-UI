@@ -22,6 +22,7 @@ import java.net.URL;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ResourceBundle;
 
 public class LikeCommentController implements Initializable {
@@ -62,10 +63,12 @@ public class LikeCommentController implements Initializable {
     }
 
     public void loadData(){
-        String query = "SELECT Distance, Time, Pace, Date FROM Activity WHERE ID = " + this.ActivityID;
+       // String query = "SELECT Distance, Time, Pace, Date FROM Activity WHERE ID = " + this.ActivityID;
         try{
             Main.db.connect();
-            CallableStatement stmt = Main.db.getConnection().prepareCall(query);
+            CallableStatement stmt = Main.db.getConnection().prepareCall("{?= call LoadData(?)}");
+            stmt.registerOutParameter(1, Types.INTEGER);
+            stmt.setInt(2, this.ActivityID);
             ResultSet rs = stmt.executeQuery();
             rs.next();
             this.distance.setText(rs.getString("Distance"));

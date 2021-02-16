@@ -19,6 +19,7 @@ import java.net.URL;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ResourceBundle;
 
 public class ActivityFeedController implements Initializable {
@@ -45,15 +46,17 @@ public class ActivityFeedController implements Initializable {
     private ObservableList<ActivityFeedTable> activitylist = FXCollections.observableArrayList();
 
     public void showActivityFeed(){
-        String query = "SELECT a1.ID AS ActivityID, Athlete.ID, FirstName, LastName, Distance, Time, Pace, Date"
-            + " FROM IsFriendsWith f"
-            + " RIGHT JOIN Activity a1 ON (a1.AthleteID=f.Athlete1ID OR a1.AthleteID=f.Athlete2ID) AND a1.AthleteID<>" + Main.id
-            + " JOIN Athlete ON Athlete.ID = a1.AthleteID"
-            + " WHERE f.Athlete2ID = " + Main.id + "OR f.Athlete2ID = " + Main.id
-            + " ORDER BY Date desc";
+//        String query = "SELECT a1.ID AS ActivityID, Athlete.ID, FirstName, LastName, Distance, Time, Pace, Date"
+//            + " FROM IsFriendsWith f"
+//            + " RIGHT JOIN Activity a1 ON (a1.AthleteID=f.Athlete1ID OR a1.AthleteID=f.Athlete2ID) AND a1.AthleteID<>" + Main.id
+//            + " JOIN Athlete ON Athlete.ID = a1.AthleteID"
+//            + " WHERE f.Athlete2ID = " + Main.id + "OR f.Athlete2ID = " + Main.id
+//            + " ORDER BY Date desc";
         try{
             Main.db.connect();
-            CallableStatement stmt = Main.db.getConnection().prepareCall(query);
+            CallableStatement stmt = Main.db.getConnection().prepareCall("{?= call GetActivityFeed(?)}");
+            stmt.registerOutParameter(1, Types.INTEGER);
+            stmt.setInt(2, Main.id);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
                 String pace = rs.getString("Pace");

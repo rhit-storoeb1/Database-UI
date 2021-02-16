@@ -17,10 +17,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Time;
+import java.sql.*;
 import java.util.Base64;
 import java.util.Random;
 
@@ -38,10 +35,12 @@ public class LoginController {
 
     public void login(ActionEvent event){
 
-        String query = "SELECT PasswordSalt, PasswordHash, AthleteID FROM [User] WHERE Username = '" + username.getText() + "'";
+        //String query = "SELECT PasswordSalt, PasswordHash, AthleteID FROM [User] WHERE Username = '" + username.getText() + "'";
         try{
             Main.db.connect();
-            PreparedStatement stmt = Main.db.getConnection().prepareStatement(query);
+            CallableStatement stmt = Main.db.getConnection().prepareCall("{?= call GetLogin(?)}");
+            stmt.registerOutParameter(1, Types.INTEGER);
+            stmt.setString(2, username.getText());
             ResultSet rs = stmt.executeQuery();
             rs.next();
 

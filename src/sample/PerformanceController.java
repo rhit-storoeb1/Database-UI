@@ -17,10 +17,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Time;
+import java.sql.*;
 import java.util.ResourceBundle;
 
 public class PerformanceController implements Initializable {
@@ -38,12 +35,13 @@ public class PerformanceController implements Initializable {
 
     public void showActivities() {
         table.getItems().clear();
-        String query = "SELECT AthleteID, MeetID, EventName, Mark, Place FROM RacedIn WHERE AthleteID = ?";
+        //String query = "SELECT AthleteID, MeetID, EventName, Mark, Place FROM RacedIn WHERE AthleteID = ?";
 
         try {
             Main.db.connect();
-            PreparedStatement stmt = Main.db.getConnection().prepareStatement(query);
-            stmt.setInt(1, Main.id);
+            CallableStatement stmt = Main.db.getConnection().prepareCall("{?= call ViewPerformances(?)}");
+            stmt.registerOutParameter(1, Types.INTEGER);
+            stmt.setInt(2, Main.id);
             ResultSet rs = stmt.executeQuery();
 
             while(rs.next()){

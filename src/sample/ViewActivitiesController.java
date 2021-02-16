@@ -19,10 +19,7 @@ import sql.DBConnector;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ResourceBundle;
 
 public class ViewActivitiesController implements Initializable {
@@ -46,12 +43,13 @@ public class ViewActivitiesController implements Initializable {
 
     public void showActivities() {
         table.getItems().clear();
-        String query = "SELECT ID, AthleteID, Distance, Time, Pace, Date FROM Activity WHERE AthleteID = ?";
+        //String query = "SELECT ID, AthleteID, Distance, Time, Pace, Date FROM Activity WHERE AthleteID = ?";
 
         try {
             Main.db.connect();
-            PreparedStatement stmt = Main.db.getConnection().prepareStatement(query);
-            stmt.setInt(1, Main.id);
+            CallableStatement stmt = Main.db.getConnection().prepareCall("{?= call ViewActivities(?)}");
+            stmt.registerOutParameter(1, Types.INTEGER);
+            stmt.setInt(2, Main.id);
             ResultSet rs = stmt.executeQuery();
 
             while(rs.next()){

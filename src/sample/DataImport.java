@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Random;
 
+//TODO: Remove all of the select statements from here, replace with SPROCS
+
 public class DataImport {
 
     private static final Random RANDOM = new SecureRandom();

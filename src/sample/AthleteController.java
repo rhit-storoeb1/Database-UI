@@ -20,6 +20,7 @@ import java.net.URL;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ResourceBundle;
 
 public class AthleteController implements Initializable {
@@ -63,10 +64,12 @@ public class AthleteController implements Initializable {
     }
 
     public void updateName(){
-        String query = "SELECT FirstName, LastName FROM Athlete WHERE ID = " + this.currentID;
+        //String query = "SELECT FirstName, LastName FROM Athlete WHERE ID = " + this.currentID;
         try{
             Main.db.connect();
-            CallableStatement stmt = Main.db.getConnection().prepareCall(query);
+            CallableStatement stmt = Main.db.getConnection().prepareCall("{?= call UpdateName(?)}");
+            stmt.registerOutParameter(1, Types.INTEGER);
+            stmt.setInt(2, this.currentID);
             ResultSet rs = stmt.executeQuery();
             rs.next();
             name.setText(rs.getString(1) + " " + rs.getString(2));
@@ -77,6 +80,7 @@ public class AthleteController implements Initializable {
         }
     }
 
+    //TODO: Have Blake help with this stored procedure cause its really confusing atm
     public void showFriends(){
         friendstable.getItems().clear();
         String query = "SELECT * FROM IsFriendsWith WHERE Athlete1ID = " + this.currentID + " OR Athlete2ID = " + this.currentID;
@@ -131,10 +135,12 @@ public class AthleteController implements Initializable {
     }
     public void showPBs(){
         pbtable.getItems().clear();
-        String query = "SELECT EventName, Mark FROM HasPBIn WHERE AthleteID = " + this.currentID;
+        //String query = "SELECT EventName, Mark FROM HasPBIn WHERE AthleteID = " + this.currentID;
         try{
             Main.db.connect();
-            CallableStatement stmt = Main.db.getConnection().prepareCall(query);
+            CallableStatement stmt = Main.db.getConnection().prepareCall("{?= call ShowPBs(?)}");
+            stmt.registerOutParameter(1, Types.INTEGER);
+            stmt.setInt(2, this.currentID);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
                 pblist.add(new PBTable(rs.getString("EventName"),
