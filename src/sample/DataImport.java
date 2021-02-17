@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Random;
 
-//TODO: Remove all of the select statements from here, replace with SPROCS
 
 public class DataImport {
 
@@ -122,15 +121,16 @@ public class DataImport {
     }
 
     public int getIDFromLog(DataFormatter df, Sheet trainingLog, int loc){
-        String query = "SELECT ID FROM Athlete WHERE FirstName = ? AND LastName = ?";
+        //String query = "SELECT ID FROM Athlete WHERE FirstName = ? AND LastName = ?";
         Main.db.connect();
         int id = 0;
         try {
-            PreparedStatement stmt = Main.db.getConnection().prepareStatement(query);
+            CallableStatement stmt = Main.db.getConnection().prepareCall("{?= call GetIDFromLog(?, ?)}");
             String fName = df.formatCellValue(trainingLog.getRow(loc).getCell(0)).replaceAll("\\s", "");
             String lName = df.formatCellValue(trainingLog.getRow(loc).getCell(1)).replaceAll("\\s", "");
-            stmt.setString(1, fName);
-            stmt.setString(2, lName);
+            stmt.registerOutParameter(1, Types.INTEGER);
+            stmt.setString(2, fName);
+            stmt.setString(3, lName);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()){
                 id = rs.getInt("ID");
@@ -186,10 +186,11 @@ public class DataImport {
         Main.db.connect();
         for(int i = 1; i < performanceList.getLastRowNum(); i++) {
             String event = df.formatCellValue(performanceList.getRow(i).getCell(2));
-            String query = "SELECT Name FROM Event WHERE Name = ?";
+            //String query = "SELECT Name FROM Event WHERE Name = ?";
             try {
-                PreparedStatement stmt = Main.db.getConnection().prepareStatement(query);
-                stmt.setString(1, event);
+                CallableStatement stmt = Main.db.getConnection().prepareCall("{?= GetEvent(?)");
+                stmt.registerOutParameter(1, Types.INTEGER);
+                stmt.setString(2, event);
                 ResultSet rs = stmt.executeQuery();
                 if (!rs.next()){
                     try {
@@ -208,17 +209,18 @@ public class DataImport {
     }
 
     public int getAthleteID(DataFormatter df, Sheet performanceList, int loc){
-        String query = "SELECT ID FROM Athlete WHERE FirstName = ? AND LastName = ? AND TeamName = ?";
+        //String query = "SELECT ID FROM Athlete WHERE FirstName = ? AND LastName = ? AND TeamName = ?";
         Main.db.connect();
         int id = 0;
         try {
-            PreparedStatement stmt = Main.db.getConnection().prepareStatement(query);
+            CallableStatement stmt = Main.db.getConnection().prepareCall("{?= call GetAthleteID(?, ?, ?)}");
             String fName = df.formatCellValue(performanceList.getRow(loc).getCell(0));
             String lName = df.formatCellValue(performanceList.getRow(loc).getCell(1));
             String teamName = df.formatCellValue(performanceList.getRow(loc).getCell(5));
-            stmt.setString(1, fName);
-            stmt.setString(2, lName);
-            stmt.setString(3, teamName);
+            stmt.registerOutParameter(1, Types.INTEGER);
+            stmt.setString(2, fName);
+            stmt.setString(3, lName);
+            stmt.setString(4, teamName);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()){
                 id = rs.getInt("ID");
@@ -230,13 +232,14 @@ public class DataImport {
     }
 
     private int getMeetID(DataFormatter df, Sheet performanceList, int loc) {
-        String query = "SELECT ID FROM Meet WHERE [Name] = ? AND Host = ? AND [Date] = ?";
+        //String query = "SELECT ID FROM Meet WHERE [Name] = ? AND Host = ? AND [Date] = ?";
         int id = 0;
         try {
-            PreparedStatement stmt = Main.db.getConnection().prepareStatement(query);
-            stmt.setString(1, df.formatCellValue(performanceList.getRow(loc).getCell(7)));
-            stmt.setString(2, df.formatCellValue(performanceList.getRow(loc).getCell(8)));
-            stmt.setString(3, df.formatCellValue(performanceList.getRow(loc).getCell(9)));
+            CallableStatement stmt = Main.db.getConnection().prepareCall("{?= call GetMeetID(?, ?, ?)}");
+            stmt.registerOutParameter(1, Types.INTEGER);
+            stmt.setString(2, df.formatCellValue(performanceList.getRow(loc).getCell(7)));
+            stmt.setString(3, df.formatCellValue(performanceList.getRow(loc).getCell(8)));
+            stmt.setString(4, df.formatCellValue(performanceList.getRow(loc).getCell(9)));
             ResultSet rs = stmt.executeQuery();
             if (rs.next()){
                 id = rs.getInt("ID");
