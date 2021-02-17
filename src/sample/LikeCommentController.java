@@ -85,12 +85,14 @@ public class LikeCommentController implements Initializable {
 
     public void showComments(){
         this.commentstable.getItems().clear();
-        String query = "SELECT FirstName, LastName, Content FROM [Comments On] " +
-                        "JOIN Athlete ON Athlete.ID = [Comments On].AthleteID " +
-                        "WHERE ActivityID = " + this.ActivityID;
+//        String query = "SELECT FirstName, LastName, Content FROM [Comments On] " +
+//                        "JOIN Athlete ON Athlete.ID = [Comments On].AthleteID " +
+//                        "WHERE ActivityID = " + this.ActivityID;
         try{
             Main.db.connect();
-            CallableStatement stmt = Main.db.getConnection().prepareCall(query);
+            CallableStatement stmt = Main.db.getConnection().prepareCall("{?= call ShowComments(?)}");
+            stmt.registerOutParameter(1, Types.INTEGER);
+            stmt.setInt(2, this.ActivityID);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
                 commentlist.add(new CommentTable(rs.getString("FirstName") + " " + rs.getString("LastName"),
@@ -106,10 +108,12 @@ public class LikeCommentController implements Initializable {
     }
 
     public void showLikes(){ //done on startup + when likes update
-        String query = "SELECT COUNT(*) FROM Likes WHERE ActivityID = " + ActivityID;
+        //String query = "SELECT COUNT(*) FROM Likes WHERE ActivityID = " + ActivityID;
         try{
             Main.db.connect();
-            CallableStatement stmt = Main.db.getConnection().prepareCall(query);
+            CallableStatement stmt = Main.db.getConnection().prepareCall("{?= call ShowLikes(?)}");
+            stmt.registerOutParameter(1, Types.INTEGER);
+            stmt.setInt(2, this.ActivityID);
             ResultSet rs = stmt.executeQuery();
             rs.next();
             String count = rs.getString(1);
@@ -120,10 +124,13 @@ public class LikeCommentController implements Initializable {
     }
 
     public void addLikes(){ //activates on button press
-        String query = "INSERT INTO Likes (AthleteID, ActivityID) VALUES (" + this.AthleteID + ", " + this.ActivityID + ")";
+        //String query = "INSERT INTO Likes (AthleteID, ActivityID) VALUES (" + this.AthleteID + ", " + this.ActivityID + ")";
         try{
             Main.db.connect();
-            CallableStatement stmt = Main.db.getConnection().prepareCall(query);
+            CallableStatement stmt = Main.db.getConnection().prepareCall("{?= call AddLike(?, ?)}");
+            stmt.registerOutParameter(1, Types.INTEGER);
+            stmt.setInt(2, this.AthleteID);
+            stmt.setInt(3, this.ActivityID);
             stmt.execute();
         }catch(SQLException e){
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -135,10 +142,12 @@ public class LikeCommentController implements Initializable {
 
     public void showName(){
         System.out.println(this.ActivityID);
-        String query = "SELECT FirstName, LastName FROM Athlete WHERE ID = (SELECT AthleteID FROM Activity WHERE ID = " + this.ActivityID + ")";
+        //String query = "SELECT FirstName, LastName FROM Athlete WHERE ID = (SELECT AthleteID FROM Activity WHERE ID = " + this.ActivityID + ")";
         try{
             Main.db.connect();
-            CallableStatement stmt = Main.db.getConnection().prepareCall(query);
+            CallableStatement stmt = Main.db.getConnection().prepareCall("{?= call ShowName(?)}");
+            stmt.registerOutParameter(1, Types.INTEGER);
+            stmt.setInt(2, this.ActivityID);
             ResultSet rs = stmt.executeQuery();
             rs.next();
             name.setText(rs.getString(1) + " " + rs.getString(2));
@@ -148,10 +157,13 @@ public class LikeCommentController implements Initializable {
     }
 
     public void removeLikes(){ //activates on button press
-        String query = "DELETE FROM Likes WHERE AthleteID = " + this.AthleteID + " AND ActivityID = " + this.ActivityID;
+        //String query = "DELETE FROM Likes WHERE AthleteID = " + this.AthleteID + " AND ActivityID = " + this.ActivityID;
         try{
             Main.db.connect();
-            CallableStatement stmt = Main.db.getConnection().prepareCall(query);
+            CallableStatement stmt = Main.db.getConnection().prepareCall("{?= call DeleteLike(?, ?)}");
+            stmt.registerOutParameter(1,Types.INTEGER);
+            stmt.setInt(2, this.AthleteID);
+            stmt.setInt(3, this.ActivityID);
             stmt.execute();
         }catch(SQLException e){
             e.printStackTrace();
@@ -160,10 +172,14 @@ public class LikeCommentController implements Initializable {
     }
 
     public void addComment(){ //activates on button press
-        String query = "INSERT INTO [Comments On] (AthleteID, ActivityID, Content) VALUES (" + Main.id + ", " + this.ActivityID + ", '" + commentfield.getText() + "')";
+        //String query = "INSERT INTO [Comments On] (AthleteID, ActivityID, Content) VALUES (" + Main.id + ", " + this.ActivityID + ", '" + commentfield.getText() + "')";
         try{
             Main.db.connect();
-            CallableStatement stmt = Main.db.getConnection().prepareCall(query);
+            CallableStatement stmt = Main.db.getConnection().prepareCall("{?= call AddComment(?, ?, ?)}");
+            stmt.registerOutParameter(1, Types.INTEGER);
+            stmt.setInt(2, this.AthleteID);
+            stmt.setInt(3, this.ActivityID);
+            stmt.setString(4, commentfield.getText());
             stmt.execute();
         }catch(SQLException e){
             e.printStackTrace();
