@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -50,8 +51,16 @@ public class PerformanceController implements Initializable {
                         rs.getString("Mark"),
                         rs.getString("Place")));
             }
-        }catch(SQLException ex){
-            ex.printStackTrace();
+        }catch(SQLException e){
+            int errorCode = e.getErrorCode();
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            if(errorCode==1){
+                alert.setContentText("Athlete cannot be null");
+            }else{
+                alert.setContentText("Something went wrong. Please try again");
+            }
+            alert.show();
+            //e.printStackTrace();
             return;
         }
 

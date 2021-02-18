@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -74,7 +75,17 @@ public class ActivityFeedController implements Initializable {
             }
 
         }catch(SQLException e){
+            int errorCode = e.getErrorCode();
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            if(errorCode==1){
+                alert.setContentText("The id for the Athlete cannot be null");
+            }else{
+                alert.setContentText("Something went wrong. Please try again");
+            }
+            alert.show();
             e.printStackTrace();
+            //e.printStackTrace();
+            return;
         }
         this.fname.setCellValueFactory(new PropertyValueFactory<>("FirstName"));
         this.lname.setCellValueFactory(new PropertyValueFactory<>("LastName"));

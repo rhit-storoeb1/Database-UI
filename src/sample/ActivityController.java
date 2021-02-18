@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -65,7 +66,21 @@ public class ActivityController{
             stmt.execute();
             Main.db.closeConnection();
         }catch (SQLException e){
-            e.printStackTrace();
+            int errorCode = e.getErrorCode();
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            if(errorCode==1){
+                alert.setContentText("Cannot insert null for id of Athlete");
+            }else if(errorCode==2){
+                alert.setContentText("This athlete does not exist");
+            }else if(errorCode==3){
+                alert.setContentText("Distance cannot be empty");
+            }else if(errorCode==4){
+                alert.setContentText("Time cannot be empty");
+            }else{
+                alert.setContentText("Something went wrong. Please try again");
+            }
+            alert.show();
+            //e.printStackTrace();
         }
     }
 

@@ -79,7 +79,15 @@ public class LikeCommentController implements Initializable {
                 this.date.setText(dateString);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            int errorCode = e.getErrorCode();
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            if(errorCode==1){
+                alert.setContentText("Tried to load data from an activity that does not exist");
+            }else{
+                alert.setContentText("Something went wrong. Please try again");
+            }
+            alert.show();
+            //e.printStackTrace();
         }
     }
 
@@ -99,7 +107,15 @@ public class LikeCommentController implements Initializable {
                         rs.getString("Content")));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            int errorCode = e.getErrorCode();
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            if(errorCode==1){
+                alert.setContentText("Tried to get comments from an activity that does not exist");
+            }else{
+                alert.setContentText("Something went wrong. Please try again");
+            }
+            alert.show();
+            //e.printStackTrace();
         }
         this.namecolumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
         this.commentcolumn.setCellValueFactory(new PropertyValueFactory<>("Comment"));
@@ -119,7 +135,15 @@ public class LikeCommentController implements Initializable {
             String count = rs.getString(1);
             likes.setText(count);
         } catch (SQLException e) {
-            e.printStackTrace();
+            int errorCode = e.getErrorCode();
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            if(errorCode==1){
+                alert.setContentText("Tried to get the likes from an activity that does not exist");
+            }else{
+                alert.setContentText("Something went wrong. Please try again");
+            }
+            alert.show();
+            //e.printStackTrace();
         }
     }
 
@@ -133,9 +157,19 @@ public class LikeCommentController implements Initializable {
             stmt.setInt(3, this.ActivityID);
             stmt.execute();
         }catch(SQLException e){
+            int errorCode = e.getErrorCode();
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setContentText("You have already Liked this activity");
+            if(errorCode==1){
+                alert.setContentText("Error with liking this run with current user's ID");
+            }else if(errorCode==2){
+                alert.setContentText("Tried liking an activity that does not exist");
+            }else if(errorCode==3){
+                alert.setContentText("You have already liked this post");
+            }else{
+                alert.setContentText("Something went wrong. Please try again");
+            }
             alert.show();
+            //e.printStackTrace();
         }
         showLikes();
     }
@@ -151,8 +185,16 @@ public class LikeCommentController implements Initializable {
             ResultSet rs = stmt.executeQuery();
             rs.next();
             name.setText(rs.getString(1) + " " + rs.getString(2));
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            int errorCode = e.getErrorCode();
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            if(errorCode==1){
+                alert.setContentText("Tried to get the name from an athlete who does not exist");
+            }else{
+                alert.setContentText("Something went wrong. Please try again");
+            }
+            alert.show();
+            //e.printStackTrace();
         }
     }
 
@@ -166,7 +208,17 @@ public class LikeCommentController implements Initializable {
             stmt.setInt(3, this.ActivityID);
             stmt.execute();
         }catch(SQLException e){
-            e.printStackTrace();
+            int errorCode = e.getErrorCode();
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            if(errorCode==1){
+                alert.setContentText("Tried to remove like, but had an error with current user's ID");
+            }else if(errorCode==2){
+                alert.setContentText("Tried to remove a like from an activity that does not exist");
+            }else{
+                alert.setContentText("Something went wrong. Please try again");
+            }
+            alert.show();
+            //e.printStackTrace();
         }
         showLikes();
     }
@@ -182,7 +234,17 @@ public class LikeCommentController implements Initializable {
             stmt.setString(4, commentfield.getText());
             stmt.execute();
         }catch(SQLException e){
-            e.printStackTrace();
+            int errorCode = e.getErrorCode();
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            if(errorCode==1){
+                alert.setContentText("Tried to add a comment, but had a problem with the current User's iD");
+            }else if(errorCode==2){
+                alert.setContentText("Tried to add a comment to an activity that does not exist");
+            }else{
+                alert.setContentText("Something went wrong. Please try again");
+            }
+            alert.show();
+            //e.printStackTrace();
         }
         showComments();
     }
