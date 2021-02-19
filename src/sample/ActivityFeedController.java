@@ -68,8 +68,8 @@ public class ActivityFeedController implements Initializable {
                         rs.getString("ID"),
                         rs.getString("FirstName"),
                         rs.getString("LastName"),
-                        rs.getString("Distance"),
-                        rs.getString("Time"),
+                        Main.truncateDecimal(rs.getString("Distance")),
+                        Main.trimTime(rs.getString("Time")),
                         pace,
                         rs.getString("Date")));
             }

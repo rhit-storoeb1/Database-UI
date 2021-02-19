@@ -56,7 +56,7 @@ public class ActivityController{
             Main.db.connect();
             PreparedStatement stmt = Main.db.getConnection().prepareCall("{call InsertActivity(?, ?, ?, ?)}");
             stmt.setInt(1, Main.id); //AthleteID
-            stmt.setFloat(2, Float.parseFloat(this.distance.getText().substring(0, 4))); //distance
+            stmt.setFloat(2, Float.parseFloat(this.distance.getText())); //distance
             stmt.setTime(3, Time.valueOf(this.time.getText())); //time
             if(this.date.getText().isEmpty()){
                 stmt.setString(4, null);

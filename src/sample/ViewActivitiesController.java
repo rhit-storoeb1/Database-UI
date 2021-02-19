@@ -60,8 +60,8 @@ public class ViewActivitiesController implements Initializable {
                 }
                 oblist.add(new ActivityTable(rs.getString("ID"),
                         rs.getString("AthleteID"),
-                        rs.getString("Distance"),
-                        rs.getString("Time"),
+                        Main.truncateDecimal(rs.getString("Distance")),
+                        Main.trimTime(rs.getString("Time")),
                         pace,
                         rs.getString("Date")));
             }

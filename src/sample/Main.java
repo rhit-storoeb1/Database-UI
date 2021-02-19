@@ -10,6 +10,7 @@ import sql.DBConnector;
 
 import javax.xml.crypto.Data;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.Connection;
 import java.util.ResourceBundle;
@@ -53,6 +54,19 @@ public class Main extends Application {
         }
         System.out.println(finalProduct);
         return finalProduct;
+    }
+
+    static String truncateDecimal( String num){
+        double unroundedNumber = Double.parseDouble(num);
+        int truncatedNumberInt = (int)( unroundedNumber * Math.pow( 10, 2 ) );
+        double truncatedNumber = (double)( truncatedNumberInt / Math.pow( 10, 2 ) );
+        return Double.toString(truncatedNumber);
+    }
+
+    public static String trimTime(String time){
+        int dec = time.indexOf(".");
+        String trimmed = time.substring(0, dec+2);
+        return trimmed;
     }
 
 }

@@ -71,8 +71,8 @@ public class LikeCommentController implements Initializable {
             stmt.setInt(2, this.ActivityID);
             ResultSet rs = stmt.executeQuery();
             rs.next();
-            this.distance.setText(rs.getString("Distance"));
-            this.time.setText(rs.getString("Time"));
+            this.distance.setText(Main.truncateDecimal(rs.getString("Distance")));
+            this.time.setText(Main.trimTime(rs.getString("Time")));
             this.pace.setText(rs.getString("Pace"));
             String dateString = rs.getString("Date");
             if(dateString!=null){
@@ -166,7 +166,7 @@ public class LikeCommentController implements Initializable {
             }else if(errorCode==3){
                 alert.setContentText("You have already liked this post");
             }else{
-                alert.setContentText("Something went wrong. Please try again");
+                alert.setContentText("You have already liked this post");
             }
             alert.show();
             //e.printStackTrace();
