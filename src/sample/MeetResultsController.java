@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -51,7 +52,25 @@ public class MeetResultsController {
             stmt.execute();
             Main.db.closeConnection();
         }catch (SQLException e){
-            e.printStackTrace();
+            int errorCode = e.getErrorCode();
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            if(errorCode==1){
+                alert.setContentText("Athlete cannot be null");
+            }else if(errorCode==2){
+                alert.setContentText("Meet cannot be null");
+            }else if(errorCode==3){
+                alert.setContentText("Event name cannot be null");
+            }else if(errorCode==4){
+                alert.setContentText("Athlete does not exist");
+            }else if(errorCode==5){
+                alert.setContentText("Meet does not exist");
+            }else if(errorCode==6){
+                alert.setContentText("Invalid event name");
+            }else{
+                alert.setContentText("Something went wrong. Please try again");
+            }
+            alert.show();
+            //e.printStackTrace();
         }
     }
 }

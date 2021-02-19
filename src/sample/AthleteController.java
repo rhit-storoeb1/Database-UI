@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -75,8 +76,17 @@ public class AthleteController implements Initializable {
             name.setText(rs.getString(1) + " " + rs.getString(2));
 
 
-        } catch (SQLException e) {
+        }catch (SQLException e){
+            int errorCode = e.getErrorCode();
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            if(errorCode==1){
+                alert.setContentText("The id for the Athlete cannot be null");
+            }else{
+                alert.setContentText("Something went wrong. Please try again");
+            }
+            alert.show();
             e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 
@@ -147,7 +157,15 @@ public class AthleteController implements Initializable {
                         rs.getString("Mark")));
             }
         }catch(SQLException e){
-            e.printStackTrace();
+            int errorCode = e.getErrorCode();
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            if(errorCode==1){
+                alert.setContentText("Cannot insert null for id of Athlete");
+            }else{
+                alert.setContentText("Something went wrong. Please try again");
+            }
+            alert.show();
+            //e.printStackTrace();
         }
         this.pbcolumn.setCellValueFactory(new PropertyValueFactory<>("PB"));
         this.eventcolumn.setCellValueFactory(new PropertyValueFactory<>("Event"));

@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.scene.control.Alert;
 import org.apache.poi.ss.usermodel.*;
 
 import javax.crypto.SecretKeyFactory;
@@ -64,7 +65,21 @@ public class DataImport {
                 stmt.execute();
 
             } catch (SQLException e) {
-                e.printStackTrace();
+                int errorCode = e.getErrorCode();
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                if(errorCode==1){
+                    alert.setContentText("Import: Username field cannot be empty");
+                }else if(errorCode==2){
+                    alert.setContentText("Import: Password Salt cannot be empty");
+                }else if(errorCode==3){
+                    alert.setContentText("Import: Password Hash cannot be empty");
+                }else if(errorCode==4){
+                    alert.setContentText("Import: This username already exists");
+                }else{
+                    alert.setContentText("Import: Something went wrong. Please try again");
+                }
+                alert.show();
+                //e.printStackTrace();
             }
 
         }
@@ -87,7 +102,25 @@ public class DataImport {
                 stmt.setInt(6, place);
                 stmt.execute();
             } catch (SQLException e) {
-                e.printStackTrace();
+                int errorCode = e.getErrorCode();
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                if(errorCode==1){
+                    alert.setContentText("Import: Cannot insert null for id of Athlete");
+                }else if(errorCode==2){
+                    alert.setContentText("Import: Cannot insert null for id of Meet");
+                }else if(errorCode==3){
+                    alert.setContentText("Import: Missing name for event");
+                }else if(errorCode==4){
+                    alert.setContentText("Import: This athlete does not exist");
+                }else if(errorCode==5){
+                    alert.setContentText("Import: This meet does not exist");
+                }else if(errorCode==6){
+                    alert.setContentText("Import: This event does not exist");
+                }else{
+                    alert.setContentText("Import: Something went wrong. Please try again");
+                }
+                alert.show();
+                //e.printStackTrace();
             }
         }
     }
@@ -115,7 +148,21 @@ public class DataImport {
                 stmt.setDate(5, dateIn);
                 stmt.execute();
             } catch (SQLException e) {
-                e.printStackTrace();
+                int errorCode = e.getErrorCode();
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                if(errorCode==1){
+                    alert.setContentText("Import: Cannot insert null for id of Athlete");
+                }else if(errorCode==2){
+                    alert.setContentText("Import: This athlete does not exist");
+                }else if(errorCode==3){
+                    alert.setContentText("Import: Distance cannot be empty");
+                }else if(errorCode==4){
+                    alert.setContentText("Import: Time cannot be empty");
+                }else{
+                    alert.setContentText("Import: Something went wrong. Please try again");
+                }
+                alert.show();
+                //e.printStackTrace();
             }
         }
     }
@@ -153,12 +200,37 @@ public class DataImport {
                     stmt2.execute();
 
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    int errorCode = e.getErrorCode();
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    if(errorCode==1){
+                        alert.setContentText("Import: Username field cannot be empty");
+                    }else if(errorCode==2){
+                        alert.setContentText("Import: Password Salt cannot be empty");
+                    }else if(errorCode==3){
+                        alert.setContentText("Import: Password Hash cannot be empty");
+                    }else if(errorCode==4){
+                        alert.setContentText("Import: This username already exists");
+                    }else{
+                        alert.setContentText("Import: Something went wrong. Please try again");
+                    }
+                    alert.show();
+                    //e.printStackTrace();
+                    return -1;
                 }
                 getIDFromLog(df, trainingLog, loc);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            int errorCode = e.getErrorCode();
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            if(errorCode==1){
+                alert.setContentText("Import: First name cannot be empty");
+            }else if(errorCode==2){
+                alert.setContentText("Import: Last name cannot be empty");
+            }else{
+                alert.setContentText("Import: Something went wrong. Please try again");
+            }
+            alert.show();
+            //e.printStackTrace();
         }
         return id;
     }
@@ -177,7 +249,21 @@ public class DataImport {
                 stmt.setDate(4, Date.valueOf(date));
                 stmt.execute();
             } catch (SQLException e) {
-                e.printStackTrace();
+                int errorCode = e.getErrorCode();
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                if(errorCode==1){
+                    alert.setContentText("Import: Meet name cannot be empty");
+                }else if(errorCode==2){
+                    alert.setContentText("Import: Meet host cannot be empty");
+                }else if(errorCode==3){
+                    alert.setContentText("Import: Meet Date cannot be empty");
+                }else if(errorCode==4){
+                    alert.setContentText("Import: This Meet already exists");
+                }else{
+                    alert.setContentText("Import: Something went wrong. Please try again");
+                }
+                alert.show();
+                //e.printStackTrace();
             }
         }
     }
@@ -199,11 +285,29 @@ public class DataImport {
                         stmt2.setString(2, event);
                         stmt2.execute();
                     } catch (SQLException e) {
-                        e.printStackTrace();
+                        int errorCode = e.getErrorCode();
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        if(errorCode==1){
+                            alert.setContentText("Import: Event name cannot be empty");
+                        }else if(errorCode==2){
+                            alert.setContentText("Import: This event already exists");
+                        }else{
+                            alert.setContentText("Import: Something went wrong. Please try again");
+                        }
+                        alert.show();
+                        //e.printStackTrace();
                     }
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                int errorCode = e.getErrorCode();
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                if(errorCode==1){
+                    alert.setContentText("Import: Event name cannot be empty");
+                }else{
+                    alert.setContentText("Import: Something went wrong. Please try again");
+                }
+                alert.show();
+                //e.printStackTrace();
             }
         }
     }
@@ -226,7 +330,20 @@ public class DataImport {
                 id = rs.getInt("ID");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            int errorCode = e.getErrorCode();
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            if(errorCode==1){
+                alert.setContentText("Import: The name of a team cannot be empty");
+            }else if(errorCode==2){
+                alert.setContentText("Import: First name cannot be empty");
+            }else if(errorCode==3){
+                alert.setContentText("Import: Last name cannot be empty");
+            }else{
+                alert.setContentText("Import: Something went wrong. Please try again");
+            }
+            alert.show();
+            //e.printStackTrace();
+            return -1;
         }
         return id;
     }
@@ -245,7 +362,20 @@ public class DataImport {
                 id = rs.getInt("ID");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            int errorCode = e.getErrorCode();
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            if(errorCode==1){
+                alert.setContentText("Import: Meet name cannot be empty");
+            }else if(errorCode==2){
+                alert.setContentText("Import: Meet host cannot be empty");
+            }else if(errorCode==3){
+                alert.setContentText("Import: Meet date cannot be empty");
+            }else{
+                alert.setContentText("Import: Something went wrong. Please try again");
+            }
+            alert.show();
+            //e.printStackTrace();
+            return -1;
         }
         return id;
     }
