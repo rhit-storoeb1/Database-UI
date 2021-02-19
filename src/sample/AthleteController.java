@@ -93,46 +93,18 @@ public class AthleteController implements Initializable {
     //TODO: Have Blake help with this stored procedure cause its really confusing atm
     public void showFriends(){
         friendstable.getItems().clear();
-        String query = "SELECT * FROM IsFriendsWith WHERE Athlete1ID = " + this.currentID + " OR Athlete2ID = " + this.currentID;
-        String query2 = "SELECT ID, FirstName, LastName FROM Athlete WHERE ID = ";
+
         try{
-            Main.db.connect();
-            CallableStatement stmt = Main.db.getConnection().prepareCall(query);
+            CallableStatement stmt = Main.db.getConnection().prepareCall("{?= call ShowFriends(?)}");
+            stmt.registerOutParameter(1, Types.INTEGER);
+            stmt.setInt(2, this.currentID);
             ResultSet rs = stmt.executeQuery();
-            boolean hasFriends = false;
             while(rs.next()){
-                hasFriends = true;
-                //prepare new statement to get all
-                String athlete1 = rs.getString(1);
-                String athlete2 = rs.getString(2);
-                if(Integer.parseInt(athlete1)==this.currentID){
-                    query2 = query2 + athlete2 + " OR ID = ";
-                }else {
-                    query2 = query2 + athlete1 + " OR ID = ";
-                }
-            }
-            if(hasFriends){
-                query2 = query2.substring(0,query2.length()-8); //remove last OR ID =
-            }else{
-                return;
-            }
-            try{
-                System.out.println(query2);
-                CallableStatement stmt2 = Main.db.getConnection().prepareCall(query2);
-                ResultSet rs2 = stmt2.executeQuery();
-
-                while(rs2.next()){
-                    String first = rs2.getString("FirstName");
-                    String last = rs2.getString("LastName");
-                    String id = rs2.getString("ID");
-                    friendslist.add(new FriendsTable(id, first + " " + last));
-                }
-            }catch(SQLException e){
-                e.printStackTrace();
+                friendslist.add(new FriendsTable(rs.getString("ID"), rs.getString("FirstName") + " " + rs.getString("LastName")));
             }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        }catch(SQLException e){
+            int errorCode = e.getErrorCode();
         }
 
         this.friendscolumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
