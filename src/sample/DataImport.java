@@ -131,7 +131,7 @@ public class DataImport {
             String distanceAsString = df.formatCellValue(trainingLog.getRow(i).getCell(3));
             String time = df.formatCellValue(trainingLog.getRow(i).getCell(2));
             String date = df.formatCellValue(trainingLog.getRow(i).getCell(4));
-            float distance = Float.parseFloat(distanceAsString.substring(0, 3));
+            float distance = Float.parseFloat(distanceAsString.substring(0, 4));
             if(time.length() == 7){
                 time = "0" + time;
             }
