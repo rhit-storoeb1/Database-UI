@@ -128,10 +128,10 @@ public class DataImport {
     public void addTrainingLog(DataFormatter df, Sheet trainingLog){
         Main.db.connect();
         for(int i = 1; i < trainingLog.getLastRowNum(); i++){
-            String distanceAsSting = df.formatCellValue(trainingLog.getRow(i).getCell(3));
+            String distanceAsString = df.formatCellValue(trainingLog.getRow(i).getCell(3));
             String time = df.formatCellValue(trainingLog.getRow(i).getCell(2));
             String date = df.formatCellValue(trainingLog.getRow(i).getCell(4));
-            float distance = Float.parseFloat(distanceAsSting);
+            float distance = Float.parseFloat(distanceAsString.substring(0, 3));
             if(time.length() == 7){
                 time = "0" + time;
             }
