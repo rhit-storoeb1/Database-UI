@@ -81,6 +81,14 @@ public class ActivityController{
             }
             alert.show();
             //e.printStackTrace();
+        }catch(NumberFormatException e){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Must enter a valid number for distance");
+            alert.show();
+        }catch(IllegalArgumentException e){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Must enter a valid time field");
+            alert.show();
         }
     }
 
