@@ -87,7 +87,7 @@ public class DataImport {
 
     public void addMeetResults(DataFormatter df, Sheet performanceList){
         Main.db.connect();
-        for(int i = 1; i < performanceList.getLastRowNum(); i++){
+        for(int i = 1; i < performanceList.getLastRowNum() + 1; i++){
             String event = df.formatCellValue(performanceList.getRow(i).getCell(2)).replaceAll("\\s", "");
             String mark = df.formatCellValue(performanceList.getRow(i).getCell(3)).replaceAll("\\s", "");
             String placeAsString = df.formatCellValue(performanceList.getRow(i).getCell(4)).replaceAll("\\s", "");
@@ -131,7 +131,7 @@ public class DataImport {
             String distanceAsString = df.formatCellValue(trainingLog.getRow(i).getCell(3));
             String time = df.formatCellValue(trainingLog.getRow(i).getCell(2));
             String date = df.formatCellValue(trainingLog.getRow(i).getCell(4));
-            float distance = Float.parseFloat(distanceAsString.substring(0, 4));
+            float distance = Float.parseFloat(distanceAsString);
             if(time.length() == 7){
                 time = "0" + time;
             }
@@ -162,7 +162,7 @@ public class DataImport {
                     alert.setContentText("Import: Something went wrong. Please try again");
                 }
                 alert.show();
-                //e.printStackTrace();
+                e.printStackTrace();
             }
         }
     }

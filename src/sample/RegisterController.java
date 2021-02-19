@@ -60,7 +60,7 @@ public class RegisterController {
             stmt.setString(8, null);
             stmt.execute();
             errorCode = stmt.getInt(1);
-
+            
             //registration successful
 
             Main.db.closeConnection();
@@ -79,7 +79,7 @@ public class RegisterController {
                 alert.setContentText("Something went wrong. Please try again");
             }
             alert.show();
-            //e.printStackTrace();
+            e.printStackTrace();
         }
     }
 

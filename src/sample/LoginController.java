@@ -56,7 +56,10 @@ public class LoginController {
                 goToAthletePage(event);
             }else{
                 //login failed, display fail message
-                System.out.println("login failed");
+                //System.out.println("login failed");
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setContentText("Something went wrong while trying to login");
+                alert.show();
             }
 
         }catch(SQLException e){

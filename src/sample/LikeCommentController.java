@@ -229,7 +229,7 @@ public class LikeCommentController implements Initializable {
             Main.db.connect();
             CallableStatement stmt = Main.db.getConnection().prepareCall("{?= call AddComment(?, ?, ?)}");
             stmt.registerOutParameter(1, Types.INTEGER);
-            stmt.setInt(2, this.AthleteID);
+            stmt.setInt(2, Main.id);
             stmt.setInt(3, this.ActivityID);
             stmt.setString(4, commentfield.getText());
             stmt.execute();
