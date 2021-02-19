@@ -50,7 +50,7 @@ public class LoginController {
             String hashed = hashPassword(dec.decode(salt), password.getText());
             if(hashed.equals(pass)){
                 //login successful. store athleteID, go to athlete page
-                System.out.println("Login Successful");
+                //System.out.println("Login Successful");
                 //store athleteID somewhere
                 Main.id = rs.getInt("AthleteID");
                 goToAthletePage(event);

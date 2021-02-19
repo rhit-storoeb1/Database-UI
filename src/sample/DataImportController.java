@@ -19,7 +19,7 @@ public class DataImportController {
 
     public void runDataImport(){
 
-        System.out.println(ImportPath.getText());
+        //System.out.println(ImportPath.getText());
         DataImport di = new DataImport();
         try {
             di.importData(ImportPath.getText());

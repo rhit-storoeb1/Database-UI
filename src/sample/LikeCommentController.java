@@ -175,7 +175,7 @@ public class LikeCommentController implements Initializable {
     }
 
     public void showName(){
-        System.out.println(this.ActivityID);
+        //System.out.println(this.ActivityID);
         //String query = "SELECT FirstName, LastName FROM Athlete WHERE ID = (SELECT AthleteID FROM Activity WHERE ID = " + this.ActivityID + ")";
         try{
             Main.db.connect();

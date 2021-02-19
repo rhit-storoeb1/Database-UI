@@ -90,7 +90,6 @@ public class AthleteController implements Initializable {
         }
     }
 
-    //TODO: Have Blake help with this stored procedure cause its really confusing atm
     public void showFriends(){
         friendstable.getItems().clear();
 
