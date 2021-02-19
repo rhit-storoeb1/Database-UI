@@ -188,7 +188,7 @@ public class DataImport {
             String event = df.formatCellValue(performanceList.getRow(i).getCell(2));
             //String query = "SELECT Name FROM Event WHERE Name = ?";
             try {
-                CallableStatement stmt = Main.db.getConnection().prepareCall("{?= GetEvent(?)");
+                CallableStatement stmt = Main.db.getConnection().prepareCall("{?= call GetEvent(?)}");
                 stmt.registerOutParameter(1, Types.INTEGER);
                 stmt.setString(2, event);
                 ResultSet rs = stmt.executeQuery();
