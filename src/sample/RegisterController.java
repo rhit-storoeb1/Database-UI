@@ -44,6 +44,11 @@ public class RegisterController {
     public void register() throws IOException{
 
         byte[] newSalt = getNewSalt();
+        if(Rpassword.getText().equals("")){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Password field cannot be empty");
+            alert.show();
+        }
         String hashedPass = hashPassword(newSalt, Rpassword.getText());
         int errorCode = 0;
         try{
@@ -60,6 +65,26 @@ public class RegisterController {
             stmt.setString(8, null);
             stmt.execute();
             errorCode = stmt.getInt(1);
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            if(errorCode==1){
+                alert.setContentText("Username field cannot be empty");
+                alert.show();
+            }else if(errorCode==2){
+                alert.setContentText("Password Salt cannot be empty");
+                alert.show();
+            }else if(errorCode==3){
+                alert.setContentText("Password Hash cannot be empty");
+                alert.show();
+            }else if(errorCode==4){
+                alert.setContentText("This username already exists");
+                alert.show();
+            }else if(errorCode==5){
+                alert.setContentText("First name cannot be empty");
+                alert.show();
+            }else if(errorCode==6){
+                alert.setContentText("Last name cannot be empty");
+                alert.show();
+            }
             
             //registration successful
 
